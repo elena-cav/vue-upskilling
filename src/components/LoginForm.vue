@@ -1,11 +1,9 @@
 <template>
-  <p class="error">{{ error }}</p>
+  <p class="error">{{ userStore.state.error }}</p>
   <form @submit="onSubmit">
     <input v-model="form.username" placeholder="Username" type="text" />
     <div class="pw-wrapper">
       <input
-        @focus="resetError"
-        @blur="resetError"
         v-model="form.password"
         placeholder="Password"
         :type="passwordFieldType"
@@ -21,7 +19,7 @@
         </button>
       </div>
     </div>
-    <button class="login-btn" type="submit">Login</button>
+    <button class="log-btn" type="submit">Login</button>
   </form>
 </template>
 
@@ -32,24 +30,23 @@ export default {
     return {
       passwordFieldType: "password",
       form: { username: "", password: "" },
-      error: "",
+      userStore,
     };
   },
   methods: {
     onSubmit() {
       userStore.login(this.form.username, this.form.password);
-      if (userStore.state.error !== "") this.error = userStore.state.error;
-
       this.form.username = "";
       this.form.password = "";
     },
+
     toggleVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
     },
-    resetError() {
-      this.error = "";
-    },
+    // resetError() {
+    //   this.error = "";
+    // },
   },
 };
 </script>
@@ -57,6 +54,7 @@ export default {
 <style lang="scss">
 .error {
   color: $red;
+  min-height: 1rem;
 }
 form {
   display: flex;
@@ -98,16 +96,6 @@ form {
         overflow: hidden;
       }
     }
-  }
-  .login-btn,
-  .login-btn:focus {
-    color: white;
-    border-radius: 5px;
-    padding: 0.5rem;
-    border: none;
-    width: 100%;
-    align-self: center;
-    background-color: $red;
   }
 }
 </style>

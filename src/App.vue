@@ -1,34 +1,28 @@
 <template>
   <div class="homepage">
     <div v-if="!userStore.getters.isLoggedIn">
-      <h2>Welcome to this fantastic Login page!</h2>
+      <h1>Welcome to this fantastic Login page!</h1>
 
       <LoginForm />
     </div>
     <div v-else class="text-center">
-      <h2>Welcome, {{ userStore.state.name }}</h2>
-      <button class="btn btn-secondary" @click="userStore.logout()">
-        Logout
-      </button>
+      <h1 class="welcome">Welcome, {{ userStore.state.name }}</h1>
+      <button class="log-btn" @click="userStore.logout()">Logout</button>
     </div>
   </div>
 </template>
 
 <script>
 import LoginForm from "./components/LoginForm";
-import { onMounted, defineComponent } from "vue";
 import userStore from "./stores/user";
-export default defineComponent({
+export default {
   name: "App",
-
   components: { LoginForm },
 
   setup() {
-    onMounted(userStore.getUser);
     return { userStore };
   },
-});
-console.log(userStore.getters.isLoggedIn, userStore.state.name);
+};
 </script>
 <style lang="scss">
 *,
@@ -60,6 +54,19 @@ button:focus {
   align-items: center;
 }
 
-.homepage {
+.log-btn,
+.log-btn:focus {
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: none;
+  width: 100%;
+  align-self: center;
+  background-color: $red;
+  font-size: 1.2rem;
+}
+
+.welcome {
+  margin-bottom: 1rem;
 }
 </style>
