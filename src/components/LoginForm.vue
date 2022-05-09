@@ -1,5 +1,5 @@
 <template>
-  <p class="error">{{ userStore.state.error }}</p>
+  <p class="error">{{ userStore.state.value.error }}</p>
   <form @submit.prevent="onSubmit">
     <input
       @focus="resetError"
@@ -42,7 +42,7 @@ export default {
   methods: {
     onSubmit() {
       if (!this.form.username || !this.form.password) {
-        userStore.state.error = "Username and password are required";
+        userStore.state.value.error = "Username and password are required";
         return;
       }
       userStore.login(this.form.username, this.form.password);
@@ -55,7 +55,7 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
     resetError() {
-      userStore.state.error = "";
+      userStore.state.value.error = "";
     },
   },
 };

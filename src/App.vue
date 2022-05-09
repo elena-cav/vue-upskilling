@@ -1,12 +1,12 @@
 <template>
   <div class="homepage">
-    <div v-if="!userStore.getters.isLoggedIn">
+    <div v-if="!userStore.getters.value.isLoggedIn">
       <h1>Welcome to this fantastic Login page!</h1>
 
       <LoginForm />
     </div>
     <div v-else class="text-center">
-      <h1 class="welcome">Welcome, {{ userStore.state.name }}</h1>
+      <h1 class="welcome">Welcome, {{ userStore.state.value.name }}</h1>
       <button class="log-btn" @click="userStore.logout()">Logout</button>
     </div>
   </div>

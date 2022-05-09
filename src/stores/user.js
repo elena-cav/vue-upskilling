@@ -1,14 +1,14 @@
-import { computed, reactive } from "vue";
+import { computed, ref } from "vue";
 import { login } from "../requests";
 
-const state = reactive({
+const state = ref({
   name: "",
   username: "",
   error: "",
 });
 
-const getters = reactive({
-  isLoggedIn: computed(() => state.username !== ""),
+const getters = ref({
+  isLoggedIn: computed(() => state.value.username !== ""),
 });
 
 const actions = {
@@ -16,18 +16,18 @@ const actions = {
     const user = await login(username, password);
 
     if (!user) {
-      state.error = "Incorrect username or password";
+      state.value.error = "Incorrect username or password";
       return false;
     }
-    state.name = user.name;
-    state.username = user.username;
-    state.error = "";
+    state.value.name = user.name;
+    state.value.username = user.username;
+    state.value.error = "";
 
     return true;
   },
   async logout() {
-    state.name = "";
-    state.username = "";
+    state.value.name = "";
+    state.value.username = "";
   },
 };
 
