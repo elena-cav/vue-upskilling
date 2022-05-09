@@ -1,9 +1,15 @@
 <template>
   <p class="error">{{ userStore.state.error }}</p>
-  <form @submit="onSubmit">
-    <input v-model="form.username" placeholder="Username" type="text" />
+  <form @submit.prevent="onSubmit">
+    <input
+      @focus="resetError"
+      v-model="form.username"
+      placeholder="Username"
+      type="text"
+    />
     <div class="pw-wrapper">
       <input
+        @focus="resetError"
         v-model="form.password"
         placeholder="Password"
         :type="passwordFieldType"
@@ -25,16 +31,20 @@
 
 <script>
 import userStore from "../stores/user";
+import { ref } from "vue";
 export default {
-  data() {
-    return {
-      passwordFieldType: "password",
-      form: { username: "", password: "" },
-      userStore,
-    };
+  setup() {
+    const form = ref({ username: "", password: "" });
+    const passwordFieldType = ref("password");
+    const errors = ref([]);
+    return { errors, userStore, form, passwordFieldType };
   },
   methods: {
     onSubmit() {
+      if (!this.form.username || !this.form.password) {
+        userStore.state.error = "Username and password are required";
+        return;
+      }
       userStore.login(this.form.username, this.form.password);
       this.form.username = "";
       this.form.password = "";
@@ -44,9 +54,9 @@ export default {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
     },
-    // resetError() {
-    //   this.error = "";
-    // },
+    resetError() {
+      userStore.state.error = "";
+    },
   },
 };
 </script>
@@ -54,7 +64,7 @@ export default {
 <style lang="scss">
 .error {
   color: $red;
-  min-height: 1rem;
+  min-height: 1.2rem;
 }
 form {
   display: flex;
