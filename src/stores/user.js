@@ -29,6 +29,10 @@ const actions = {
     state.value.name = "";
     state.value.username = "";
   },
+
+  async signup(data) {
+    console.log(data);
+  },
 };
 
 export default { state, getters, ...actions };

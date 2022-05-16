@@ -7,37 +7,33 @@
       placeholder="Username"
       type="text"
     />
-    <div class="pw-wrapper">
-      <input
+    <PasswordInput
+      :type="passwordFieldType"
+      placeholder="Password"
+      :model="form.password"
+    />
+    <!-- <input
         @focus="resetError"
         v-model="form.password"
         placeholder="Password"
         :type="passwordFieldType"
-      />
-      <div class="eye-wrapper">
-        <button class="eye-btn" type="button" @click="toggleVisibility">
-          <fa v-if="passwordFieldType === 'password'" icon="eye-slash" />
-          <fa v-else icon="eye" />
-          <span class="sr-only" v-if="passwordFieldType === 'password'"
-            >Hide password</span
-          >
-          <span class="sr-only" v-else>Show password</span>
-        </button>
-      </div>
-    </div>
+      /> -->
+
     <button class="log-btn" type="submit">Login</button>
   </form>
 </template>
 
 <script>
 import userStore from "../stores/user";
+import PasswordInput from "./PasswordInput";
+
 import { ref } from "vue";
 export default {
+  components: { PasswordInput },
   setup() {
     const form = ref({ username: "", password: "" });
-    const passwordFieldType = ref("password");
     const errors = ref([]);
-    return { errors, userStore, form, passwordFieldType };
+    return { errors, userStore, form };
   },
   methods: {
     onSubmit() {
@@ -48,14 +44,6 @@ export default {
       userStore.login(this.form.username, this.form.password);
       this.form.username = "";
       this.form.password = "";
-    },
-
-    toggleVisibility() {
-      this.passwordFieldType =
-        this.passwordFieldType === "password" ? "text" : "password";
-    },
-    resetError() {
-      userStore.state.value.error = "";
     },
   },
 };
@@ -69,7 +57,7 @@ export default {
 form {
   display: flex;
   flex-direction: column;
-  width: auto;
+  min-width: 300px;
   row-gap: 1.2rem;
   background-color: white;
   padding: 1rem;
