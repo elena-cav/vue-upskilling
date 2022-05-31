@@ -1,31 +1,28 @@
 <template>
   <p class="error">{{ userStore.state.value.error }}</p>
   <form @submit.prevent="onSubmit">
-    <input v-model="form.firstname" placeholder="First Name" />
-    <input v-model="form.lastname" placeholder="Last Name" />
-    <input v-model="form.username" placeholder="username" />
+    <TextInput v-model="form.firstname" placeholder="First Name" />
+    <TextInput v-model="form.lastname" placeholder="Last Name" />
+    <TextInput v-model="form.username" placeholder="Username" />
+    <PasswordInput placeholder="Password" v-model="form.password" />
     <PasswordInput
-      :type="passwordFieldType"
-      placeholder="Password"
-      :model="form.password"
-    />
-    <PasswordInput
-      :type="passwordFieldType"
       placeholder="Confirm Password"
-      :model="form.confirmedPassword"
+      v-model="form.confirmedPassword"
     />
-    <button class="log-btn">Sign Up</button>
+    <button type="submit" class="log-btn">Sign Up</button>
   </form>
 </template>
 <script>
-import PasswordInput from "./PasswordInput";
+import PasswordInput from "./reusable/PasswordInput";
+import TextInput from "./reusable/TextInput";
+
 import userStore from "../stores/user";
 import { ref } from "vue";
 
 export default {
-  components: { PasswordInput },
+  components: { PasswordInput, TextInput },
+  inject: ["reset"],
   setup() {
-    const passwordFieldType = ref("password");
     const form = ref({
       firstname: "",
       lastname: "",
@@ -34,15 +31,26 @@ export default {
       confirmedPassword: "",
     });
 
-    return { userStore, form, passwordFieldType };
+    return { userStore, form };
   },
   methods: {
+    resetError() {
+      return this.reset();
+    },
     onSubmit() {
+      console.log(this.form);
+      if (Object.values(this.form).some((v) => v === "")) {
+        userStore.state.value.error = "Please complete all fields";
+        return;
+      }
       if (this.form.password !== this.form.confirmedPassword) {
-        console.log("here");
         userStore.state.value.error = "Passwords should match";
+        return;
       } else {
-        console.log("in here");
+        const rawObj = { ...this.form };
+        const { firstname, lastname, username, password } = rawObj;
+        userStore.signup(firstname, lastname, username, password);
+        Object.keys(this.form).forEach((key) => (this.form[key] = ""));
       }
     },
   },

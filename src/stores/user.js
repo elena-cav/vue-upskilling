@@ -1,8 +1,9 @@
 import { computed, ref } from "vue";
-import { login } from "../requests";
+import { login, signup } from "../requests";
 
 const state = ref({
-  name: "",
+  firstname: "",
+  lastname: "",
   username: "",
   error: "",
 });
@@ -19,19 +20,22 @@ const actions = {
       state.value.error = "Incorrect username or password";
       return false;
     }
-    state.value.name = user.name;
+    state.value.firstname = user.firstname;
+    state.value.lastname = user.lastname;
     state.value.username = user.username;
     state.value.error = "";
 
     return true;
   },
   async logout() {
-    state.value.name = "";
+    state.value.firstname = "";
+    state.value.lastname = "";
     state.value.username = "";
   },
 
   async signup(data) {
-    console.log(data);
+    const response = await signup(data);
+    console.log("RESPONSE", response);
   },
 };
 

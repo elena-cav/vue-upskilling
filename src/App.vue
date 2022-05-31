@@ -5,10 +5,22 @@
 </template>
 
 <script>
+import userStore from "./stores/user";
+
 export default {
   name: "App",
 
   setup() {},
+  methods: {
+    resetError() {
+      userStore.state.value.error = "";
+    },
+  },
+  provide() {
+    return {
+      reset: this.resetError,
+    };
+  },
 };
 </script>
 <style lang="scss">

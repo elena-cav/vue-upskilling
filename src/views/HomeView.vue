@@ -8,7 +8,10 @@
       </div>
     </div>
     <div v-else class="text-center">
-      <h1 class="welcome">Welcome, {{ userStore.state.value.name }}</h1>
+      <h1 class="welcome">
+        Welcome, {{ userStore.state.value.firstname }}
+        {{ userStore.state.value.lastname }}
+      </h1>
       <button class="log-btn" @click="userStore.logout()">Logout</button>
     </div>
   </div>

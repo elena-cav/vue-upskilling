@@ -6,6 +6,34 @@
       "lastname": "Cavallero",
       "username": "elecav",
       "password": "123123"
+    },
+    {
+      "firstname": "eee",
+      "lastname": "e",
+      "username": "aa",
+      "password": "aaa",
+      "confirmedPassword": "aaa",
+      "id": 2
+    },
+    {
+      "firstname": "eleja",
+      "lastname": "duahdao",
+      "username": "dasd",
+      "password": "999",
+      "confirmedPassword": "999",
+      "id": 3
+    },
+    {
+      "firstname": "a",
+      "lastname": "a",
+      "username": "a",
+      "password": "aaa",
+      "confirmedPassword": "aaa",
+      "id": 4
+    },
+    {
+      "aaa": "",
+      "id": 5
     }
   ]
 }
