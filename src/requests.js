@@ -1,18 +1,19 @@
 import usersData from "./data/usersData";
 import axios from "axios";
-export const login = async (username, password) => {
-  console.log(usersData, username, password);
-
+export const authenticate = async (username, password) => {
   const foundUser = usersData.users.find(
     (s) => s.password === password && s.username === username
   );
-  console.log(foundUser);
   return foundUser;
 };
-export const signup = async (body) => {
-  console.log("BODY", body);
+export const register = async (firstname, lastname, username, password) => {
   try {
-    return await axios.post(`http://localhost:3001/users`, body);
+    return await axios.post(`http://localhost:3001/users`, {
+      firstname,
+      lastname,
+      username,
+      password,
+    });
   } catch (e) {
     console.log(e);
   }

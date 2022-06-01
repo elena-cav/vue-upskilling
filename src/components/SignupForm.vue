@@ -33,6 +33,12 @@ export default {
 
     return { userStore, form };
   },
+  mounted() {
+    console.log("isloggedinSIGNUP", userStore.getters.value.isLoggedIn);
+  },
+  updated() {
+    console.log("isloggedinSIGNUP", userStore.getters.value.isLoggedIn);
+  },
   methods: {
     resetError() {
       return this.reset();
@@ -49,8 +55,16 @@ export default {
       } else {
         const rawObj = { ...this.form };
         const { firstname, lastname, username, password } = rawObj;
-        userStore.signup(firstname, lastname, username, password);
-        Object.keys(this.form).forEach((key) => (this.form[key] = ""));
+        const isSignedUp = userStore.signup(
+          firstname,
+          lastname,
+          username,
+          password
+        );
+        if (isSignedUp) {
+          this.$router.push("/");
+          // Object.keys(this.form).forEach((key) => (this.form[key] = ""));
+        }
       }
     },
   },

@@ -9,8 +9,6 @@ import userStore from "./stores/user";
 
 export default {
   name: "App",
-
-  setup() {},
   methods: {
     resetError() {
       userStore.state.value.error = "";
@@ -51,5 +49,16 @@ button:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.log-btn,
+.log-btn:focus {
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: none;
+  width: 100%;
+  align-self: center;
+  background-color: $red;
+  font-size: 1.2rem;
 }
 </style>

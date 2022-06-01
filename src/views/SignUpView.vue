@@ -20,16 +20,6 @@ export default {
 
     return { userStore, form };
   },
-  methods: {
-    onSubmit() {
-      if (this.form.password !== this.form.confirmedPassword) {
-        console.log("here");
-        userStore.state.value.error = "Passwords should match";
-      } else {
-        console.log("in here");
-      }
-    },
-  },
 };
 </script>
 <style></style>
