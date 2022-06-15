@@ -6,6 +6,13 @@
       "lastname": "Cavallero",
       "username": "elecav",
       "password": "123123"
+    },
+    {
+      "firstname": "Kate",
+      "lastname": "Bryan",
+      "username": "katebryan",
+      "password": "Hello123!",
+      "id": 2
     }
   ]
 }

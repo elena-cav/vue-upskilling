@@ -8,7 +8,7 @@
       type="text"
     />
     <PasswordInput placeholder="Password" v-model="form.password" />
-    <button class="log-btn" type="submit">Login</button>
+    <button class="btn" type="submit">Login</button>
   </form>
 </template>
 
@@ -17,6 +17,7 @@ import userStore from "../stores/user";
 import PasswordInput from "./reusable/PasswordInput";
 
 import { ref } from "vue";
+
 export default {
   components: { PasswordInput },
   inject: ["reset"],
@@ -43,51 +44,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.error {
-  color: $red;
-  min-height: 1.2rem;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  row-gap: 1.2rem;
-  background-color: white;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 5px;
-
-  input {
-    border: 1px solid $grey;
-    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-    border-radius: 5px;
-
-    &:focus-within {
-      outline: none;
-      border: 1px solid $red;
-    }
-  }
-  .pw-wrapper {
-    position: relative;
-
-    input {
-      width: 100%;
-    }
-
-    .eye-btn {
-      position: absolute;
-      top: 25%;
-      right: 10px;
-      .sr-only {
-        position: absolute;
-        left: -10000px;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      }
-    }
-  }
-}
-</style>
+<style lang="scss"></style>

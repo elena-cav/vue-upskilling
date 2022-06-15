@@ -9,13 +9,12 @@
       placeholder="Confirm Password"
       v-model="form.confirmedPassword"
     />
-    <button type="submit" class="log-btn">Sign Up</button>
+    <button type="submit" class="btn">Sign Up</button>
   </form>
 </template>
 <script>
 import PasswordInput from "./reusable/PasswordInput";
 import TextInput from "./reusable/TextInput";
-
 import userStore from "../stores/user";
 import { ref } from "vue";
 
@@ -23,6 +22,7 @@ export default {
   components: { PasswordInput, TextInput },
   inject: ["reset"],
   setup() {
+    userStore.state.value.error = "";
     const form = ref({
       firstname: "",
       lastname: "",
@@ -30,23 +30,53 @@ export default {
       password: "",
       confirmedPassword: "",
     });
+    const passwordValidation = ref({
+      pwLength: 0,
+      containsEighChars: false,
+      containsNumber: false,
+      containsUppercase: false,
+      containsSpecialChars: false,
+    });
 
-    return { userStore, form };
+    return { userStore, form, passwordValidation };
   },
-  mounted() {
-    console.log("isloggedinSIGNUP", userStore.getters.value.isLoggedIn);
-  },
-  updated() {
-    console.log("isloggedinSIGNUP", userStore.getters.value.isLoggedIn);
-  },
+
   methods: {
     resetError() {
       return this.reset();
     },
+    checkPassword() {
+      let {
+        containsEightChars,
+        containsNumber,
+        containsSpecialChars,
+        containsUpperCase,
+        pwLength,
+      } = this.passwordValidation;
+      pwLength = this.form.password.length;
+      // eslint-disable-next-line
+      const specialChars = /[!@#$%\^&*)(+=._-]/;
+      containsEightChars = pwLength > 8;
+      containsNumber = /\d/.test(this.form.password);
+      containsUpperCase = /[A-Z]/.test(this.form.password);
+      containsSpecialChars = specialChars.test(this.form.password);
+
+      return (
+        containsEightChars &&
+        containsSpecialChars &&
+        containsUpperCase &&
+        containsNumber
+      );
+    },
     onSubmit() {
-      console.log(this.form);
       if (Object.values(this.form).some((v) => v === "")) {
         userStore.state.value.error = "Please complete all fields";
+        return;
+      }
+      const isValidPassword = this.checkPassword();
+      if (!isValidPassword) {
+        userStore.state.value.error =
+          "Password should be at least 8 characters long, contain a number, an uppercase character, and a special character.";
         return;
       }
       if (this.form.password !== this.form.confirmedPassword) {
@@ -63,7 +93,7 @@ export default {
         );
         if (isSignedUp) {
           this.$router.push("/");
-          // Object.keys(this.form).forEach((key) => (this.form[key] = ""));
+          Object.keys(this.form).forEach((key) => (this.form[key] = ""));
         }
       }
     },

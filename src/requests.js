@@ -15,6 +15,6 @@ export const register = async (firstname, lastname, username, password) => {
       password,
     });
   } catch (e) {
-    console.log(e);
+    return e;
   }
 };

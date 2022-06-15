@@ -50,8 +50,16 @@ button:focus {
   justify-content: center;
   align-items: center;
 }
-.log-btn,
-.log-btn:focus {
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+h1 {
+  font-weight: 500;
+  font-size: 1.7rem;
+}
+.btn,
+.btn:focus {
   color: white;
   border-radius: 5px;
   padding: 0.5rem;
@@ -60,5 +68,66 @@ button:focus {
   align-self: center;
   background-color: $red;
   font-size: 1.2rem;
+  text-align: center;
+}
+
+.router-link {
+  margin-top: 1rem;
+  color: $charcoal;
+  font-size: 0.9rem;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $red;
+  }
+}
+.error {
+  color: $red;
+  font-size: 0.8rem;
+  min-height: 1.2rem;
+  margin: 0.5rem 0 0.5rem 0;
+  max-width: 300px;
+  text-align: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  row-gap: 1.2rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 5px;
+
+  input {
+    border: 1px solid $grey;
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+    border-radius: 5px;
+
+    &:focus-within {
+      outline: none;
+      border: 1px solid $red;
+    }
+  }
+  .pw-wrapper {
+    position: relative;
+
+    input {
+      width: 100%;
+    }
+
+    .eye-btn {
+      position: absolute;
+      top: 25%;
+      right: 10px;
+      .sr-only {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+    }
+  }
 }
 </style>

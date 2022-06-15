@@ -3,16 +3,16 @@
     Welcome, {{ userStore.state.value.firstname }}
     {{ userStore.state.value.lastname }}
   </h1>
-  <button class="log-btn" @click="userStore.logout()">Logout</button>
-  <div class="signup-link">
-    <p>New to here? <router-link to="/signup">Sign up</router-link></p>
-  </div>
+  <button class="btn" @click="userStore.logout()">Logout</button>
 </template>
 <script>
 import userStore from "../stores/user";
 
 export default {
   setup() {
+    console.log(userStore.state.value);
+    console.log(localStorage.getItem("currentUser").firstname);
+
     return { userStore };
   },
 };
