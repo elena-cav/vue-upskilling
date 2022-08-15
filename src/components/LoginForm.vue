@@ -1,5 +1,7 @@
 <template>
-  <p class="error">{{ userStore.state.value.error }}</p>
+  <p class="error login-error">
+    {{ userStore.state.value.error }}
+  </p>
   <form @submit.prevent="onSubmit">
     <input
       @focus="resetError"
@@ -26,12 +28,18 @@ export default {
     userStore.state.value.error = "";
     return { userStore, form };
   },
+  computed: {
+    cssProps() {
+      return {
+        "--opacity": userStore.state.value.error === "" ? 0 : 1,
+      };
+    },
+  },
   methods: {
     resetError() {
       return this.reset();
     },
     onSubmit() {
-      console.log(this.form.username, this.form.password);
       if (!this.form.username || !this.form.password) {
         userStore.state.value.error = "Username and password are required";
         return;
@@ -44,4 +52,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.login-error {
+  opacity: var(--opacity);
+}
+</style>

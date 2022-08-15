@@ -84,8 +84,8 @@ h1 {
 .error {
   color: $red;
   font-size: 0.8rem;
-  min-height: 1.2rem;
-  margin: 0.5rem 0 0.5rem 0;
+  min-height: 0.8rem;
+  margin: 0.4rem 0;
   max-width: 300px;
   text-align: center;
 }

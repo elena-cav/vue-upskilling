@@ -39,6 +39,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  row-gap: 0.5rem;
   h1 {
     font-weight: 500;
     display: inline-block;

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Signup</h1>
-    <SignupForm />
+    <SignupForm class="signupform" />
     <router-link class="router-link" to="/"
       >Already have an account?</router-link
     >
@@ -22,8 +22,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-
+  justify-content: center;
+  row-gap: 0.5rem;
   h1 {
     font-weight: 500;
     display: inline-block;

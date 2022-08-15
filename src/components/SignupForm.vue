@@ -1,19 +1,35 @@
 <template>
-  <p v-if="errors.missingFields" class="error">Please complete all fields</p>
+  <p class="error missing-fields">Please complete all fields</p>
   <form @submit.prevent="onSubmit">
-    <TextInput v-model="form.firstname" placeholder="First Name" />
-    <TextInput v-model="form.lastname" placeholder="Last Name" />
-    <TextInput v-model="form.username" placeholder="Username" />
-    <PasswordInput placeholder="Password" v-model="form.password" />
-    <p v-if="errors.passwordValidation" class="error">
-      Password should be at least 8 characters long, contain a number, an
-      uppercase character, and a special character.
-    </p>
-    <PasswordInput
-      placeholder="Confirm Password"
-      v-model="form.confirmedPassword"
+    <TextInput
+      @focus="resetErrors"
+      v-model="form.firstname"
+      placeholder="First Name"
     />
-    <p v-if="errors.matchingPasswords" class="error">Passwords should match</p>
+    <TextInput
+      @focus="resetErrors"
+      v-model="form.lastname"
+      placeholder="Last Name"
+    />
+    <TextInput
+      @focus="resetErrors"
+      v-model="form.username"
+      placeholder="Username"
+    />
+    <div>
+      <PasswordInput placeholder="Password" v-model="form.password" />
+      <p class="error password-validation">
+        Password should be at least 8 characters long, contain a number, an
+        uppercase character, and a special character.
+      </p>
+    </div>
+    <div>
+      <PasswordInput
+        placeholder="Confirm Password"
+        v-model="form.confirmedPassword"
+      />
+      <p class="error matching-password">Passwords should match</p>
+    </div>
     <button type="submit" class="btn">Sign Up</button>
   </form>
 </template>
@@ -26,7 +42,6 @@ import specialChars from "../utils/specialChars";
 
 export default {
   components: { PasswordInput, TextInput },
-  inject: ["reset"],
   setup() {
     userStore.state.value.error = "";
     const form = ref({
@@ -54,8 +69,11 @@ export default {
 
   methods: {
     specialChars,
-    resetError() {
-      return this.reset();
+    resetErrors() {
+      console.log("in reset errors", this.errors);
+      return Object.keys(this.errors).forEach((key) => {
+        this.errors[key] = false;
+      });
     },
     checkPassword() {
       let {
@@ -107,6 +125,30 @@ export default {
       }
     },
   },
+  computed: {
+    opacityMatchingPw() {
+      return this.errors.matchingPasswords ? 1 : 0;
+    },
+    opacityMissingFields() {
+      return this.errors.missingFields ? 1 : 0;
+    },
+    opacityPwValidation() {
+      return this.errors.passwordValidation ? 1 : 0;
+    },
+  },
 };
 </script>
-<style></style>
+<style lang="scss" scoped>
+.password-validation {
+  font-size: 0.7rem;
+  opacity: v-bind(opacityPwValidation);
+}
+.matching-password {
+  font-size: 0.7rem;
+  opacity: v-bind(opacityMatchingPw);
+}
+.missing-fields {
+  font-size: 0.7rem;
+  opacity: v-bind(opacityMissingFields);
+}
+</style>
