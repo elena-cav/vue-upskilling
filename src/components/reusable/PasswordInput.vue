@@ -1,7 +1,7 @@
 <template>
   <div class="pw-wrapper">
     <input
-      ref="name"
+      @focus="focus"
       :placeholder="placeholder"
       :type="passwordFieldType"
       :value="modelValue"
@@ -27,12 +27,6 @@ export default {
   setup() {
     const passwordFieldType = ref("password");
     return { passwordFieldType };
-  },
-  watch: {
-    focus: function () {
-      console.log("in here");
-      if (this.focus) this.$refs.name.focus();
-    },
   },
   methods: {
     toggleVisibility() {

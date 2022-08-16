@@ -10,9 +10,6 @@ import userStore from "../stores/user";
 
 export default {
   setup() {
-    console.log(userStore.state.value);
-    console.log(localStorage.getItem("currentUser").firstname);
-
     return { userStore };
   },
 };

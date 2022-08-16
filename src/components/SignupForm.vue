@@ -75,7 +75,6 @@ export default {
   methods: {
     specialChars,
     resetErrors() {
-      console.log("in reset errors", this.errors);
       return Object.keys(this.errors).forEach((key) => {
         this.errors[key] = false;
       });
