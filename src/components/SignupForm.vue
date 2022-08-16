@@ -1,5 +1,7 @@
 <template>
-  <p class="error missing-fields">Please complete all fields</p>
+  <p class="error missing-fields">
+    <fa icon="circle-exclamation" /> Please complete all fields
+  </p>
   <form @submit.prevent="onSubmit">
     <TextInput
       @focus="resetErrors"
@@ -30,10 +32,13 @@
     />
     <div class="pw-errors-wrapper">
       <p class="error password-validation">
+        <fa icon="circle-exclamation" />
         Password must be eight or more characters, contain a number, an
         uppercase character, and a special character.
       </p>
-      <p class="error matching-password">Passwords should match</p>
+      <p class="error matching-password">
+        <fa icon="circle-exclamation" /> Passwords should match
+      </p>
     </div>
     <button type="submit" class="btn">Sign Up</button>
   </form>
@@ -150,12 +155,15 @@ export default {
 .matching-password {
   font-size: 0.7rem;
   opacity: v-bind(opacityMatchingPw);
+  transform: translate(10px, -14px);
 }
 .missing-fields {
   font-size: 0.7rem;
   opacity: v-bind(opacityMissingFields);
 }
 .pw-errors-wrapper {
-  margin: -10px 0;
+  margin: -15px 0;
 }
 </style>
+
+faCircleExclamation
