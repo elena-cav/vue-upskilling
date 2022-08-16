@@ -93,7 +93,7 @@ form {
   display: flex;
   flex-direction: column;
   min-width: 300px;
-  row-gap: 1.2rem;
+  row-gap: 0.9rem;
   background-color: white;
   padding: 1rem;
   border-radius: 5px;

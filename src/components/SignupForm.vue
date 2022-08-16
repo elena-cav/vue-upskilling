@@ -16,18 +16,23 @@
       v-model="form.username"
       placeholder="Username"
     />
-    <div>
-      <PasswordInput placeholder="Password" v-model="form.password" />
+    <PasswordInput
+      ref="'password'"
+      :focus="resetErrors"
+      placeholder="Password"
+      v-model="form.password"
+    />
+    <PasswordInput
+      ref="password"
+      :focus="resetErrors"
+      placeholder="Confirm Password"
+      v-model="form.confirmedPassword"
+    />
+    <div class="pw-errors-wrapper">
       <p class="error password-validation">
-        Password should be at least 8 characters long, contain a number, an
+        Password must be eight or more characters, contain a number, an
         uppercase character, and a special character.
       </p>
-    </div>
-    <div>
-      <PasswordInput
-        placeholder="Confirm Password"
-        v-model="form.confirmedPassword"
-      />
       <p class="error matching-password">Passwords should match</p>
     </div>
     <button type="submit" class="btn">Sign Up</button>
@@ -150,5 +155,8 @@ export default {
 .missing-fields {
   font-size: 0.7rem;
   opacity: v-bind(opacityMissingFields);
+}
+.pw-errors-wrapper {
+  margin: -10px 0;
 }
 </style>

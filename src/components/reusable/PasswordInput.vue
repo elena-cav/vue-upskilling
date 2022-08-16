@@ -1,7 +1,7 @@
 <template>
   <div class="pw-wrapper">
     <input
-      @focus="resetError"
+      ref="name"
       :placeholder="placeholder"
       :type="passwordFieldType"
       :value="modelValue"
@@ -23,17 +23,18 @@
 import { ref } from "vue";
 
 export default {
-  props: ["modelValue", "placeholder", "type"],
-  inject: ["reset"],
+  props: ["modelValue", "placeholder", "type", "focus"],
   setup() {
     const passwordFieldType = ref("password");
     return { passwordFieldType };
   },
-
-  methods: {
-    resetError() {
-      return this.reset();
+  watch: {
+    focus: function () {
+      console.log("in here");
+      if (this.focus) this.$refs.name.focus();
     },
+  },
+  methods: {
     toggleVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";

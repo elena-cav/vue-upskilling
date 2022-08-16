@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Signup</h1>
-    <SignupForm class="signupform" />
+    <SignupForm />
     <router-link class="router-link" to="/"
       >Already have an account?</router-link
     >
