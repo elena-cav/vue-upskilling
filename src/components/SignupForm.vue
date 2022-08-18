@@ -73,10 +73,8 @@ export default {
       containsUppercase: false,
       containsSpecialChars: false,
     });
-
     return { errors, userStore, form, passwordValidation };
   },
-
   methods: {
     specialChars,
     resetErrors() {
